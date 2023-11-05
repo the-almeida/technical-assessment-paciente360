@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PessoasService } from '../services/pessoas.service';
-import { DialogRef } from '@angular/cdk/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-edit-pessoa',
@@ -17,7 +17,7 @@ export class AddEditPessoaComponent {
     'Fetch from API later'
   ]
 
-  constructor(private _formBuilder: FormBuilder, private _pessoasService: PessoasService, private _dialogRef: DialogRef<AddEditPessoaComponent>) {
+  constructor(private _formBuilder: FormBuilder, private _pessoasService: PessoasService, private _dialogRef: MatDialogRef<AddEditPessoaComponent>) {
     this.pessoaForm = this._formBuilder.group({
       nome: '',
       dataDeNascimento: '',
@@ -34,12 +34,14 @@ export class AddEditPessoaComponent {
         next: (val: any) => {
           console.log(val);
           alert('Pessoa adicionada com sucesso')
-          this._dialogRef.close()
+          this._dialogRef.close(true)
         },
         error: (err: any) => {
           console.error(err)
         }
       })
+    } else {
+      alert('Falha na validação, verifique os campos em destaque.')
     }
   }
 }

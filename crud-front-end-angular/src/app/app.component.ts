@@ -26,7 +26,17 @@ export class AppComponent implements OnInit{
   }
 
   openAddEditPessoaForm() {
-    this._dialog.open(AddEditPessoaComponent)
+    const dialogRef = this._dialog.open(AddEditPessoaComponent)
+    dialogRef.afterClosed().subscribe({
+      next: (actionExecuted: boolean) => {
+        if(actionExecuted){
+          this.getPessoasList()
+        }
+      },
+      error: (err: any) => {
+        console.error(err)
+      }
+    })
   }
 
   getPessoasList() {
@@ -35,6 +45,18 @@ export class AppComponent implements OnInit{
         this.dataSource = new MatTableDataSource(res)
         this.dataSource.sort = this.sort
         this.dataSource.paginator = this.paginator
+      },
+      error: (err: any) => {
+        console.error(err)
+      }
+    })
+  }
+  
+  deletePessoa(id: number) {
+    return this._pessoasService.deletePessoa(id).subscribe({
+      next: () => {
+        alert('Pessoa deletada com sucesso')
+        this.getPessoasList()
       },
       error: (err: any) => {
         console.error(err)
