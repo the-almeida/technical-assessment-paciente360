@@ -25,8 +25,24 @@ export class AppComponent implements OnInit{
     this.getPessoasList()
   }
 
-  openAddEditPessoaForm() {
+  openAddPessoaForm() {
     const dialogRef = this._dialog.open(AddEditPessoaComponent)
+    dialogRef.afterClosed().subscribe({
+      next: (actionExecuted: boolean) => {
+        if(actionExecuted){
+          this.getPessoasList()
+        }
+      },
+      error: (err: any) => {
+        console.error(err)
+      }
+    })
+  }
+
+  openEditPessoaForm(data: any) {
+    const dialogRef = this._dialog.open(AddEditPessoaComponent, {
+      data,
+    })
     dialogRef.afterClosed().subscribe({
       next: (actionExecuted: boolean) => {
         if(actionExecuted){
