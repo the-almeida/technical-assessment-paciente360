@@ -12,4 +12,8 @@ export class PessoasService {
   addPessoa(formData: any): Observable<any> {
     return this._http.post('http://localhost:3000/pessoas', formData)
   }
+
+  getPessoasList(): Observable<any> {
+    return this._http.get('http://localhost:3000/pessoas')
+  }
 }
