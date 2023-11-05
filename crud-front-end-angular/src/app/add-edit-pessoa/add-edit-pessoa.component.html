@@ -1,1 +1,78 @@
-<p>Empty modal</p>
+<div mat-dialog-title class="title">
+    <h1>Dados de uma pessoa</h1>
+</div>
+<form [formGroup]="pessoaForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="formBody">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome da Pessoa</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                placeholder="Ex. Gustavo S. P. Almeida"
+                formControlName="nome"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Data de nascimento</mat-label>
+            <input 
+                matInput 
+                [matDatepicker]="picker" 
+                placeholder="Ex. 13/08/1997"
+                formControlName="dataDeNascimento"
+            >
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                placeholder="Ex. 123.456.789-00"
+                formControlName="cpf"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                placeholder="Ex. +5544999571618"
+                formControlName="telefone"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Observações</mat-label>
+            <input 
+                matInput 
+                type="text" 
+                placeholder="Ex. Comentário pessoal sobre o Gustavo Almeida"
+                formControlName="observacoes"
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Profissão</mat-label>
+            <mat-select placeholder="Ex. Sr. Software Engineer" formControlName="profissao">
+                <mat-option *ngFor="let jobPosition of jobPositions" [value]="jobPosition">
+                    {{jobPosition}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions">
+        <button 
+            mat-raised-button 
+            type="button"
+        >
+            Cancelar
+        </button>
+        <button 
+            mat-raised-button 
+            color="primary"
+            type="submit"
+        >
+            Salvar
+        </button>
+    </div>
+</form>
