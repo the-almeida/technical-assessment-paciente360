@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pessoa {
+  id   Int @id @default(autoincrement()) @map("pes_id")
+  pesNome String @db.VarChar(255) @map("pes_nome")
+  pesDataNascimento DateTime @db.Date() @map("pes_data_nascimento")
+  pesCpf String @db.VarChar(14) @map("pes_cpf")
+  pesTelefone String? @db.VarChar(14) @map("pes_telefone")
+  pesObservacoes String? @map("pes_observacoes")
+  profId Int? @map("prof_id")
+  pesProfissao Profissao? @relation(fields: [profId], references: [id])
+}
+
+model Profissao {
+  id Int @id @default(autoincrement()) @map("prof_id")
+  profNome String @db.VarChar(255) @map("prof_nome")
+  profPessoas Pessoa[]
+}
