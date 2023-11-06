@@ -1,3 +1,4 @@
 import pessoasRoutes from './pessoas.route'
+import profissoesRoutes from './profissoes.route'
 
-export {pessoasRoutes}
+export {pessoasRoutes, profissoesRoutes}

@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { pessoasRoutes } from './routes'
+import { pessoasRoutes, profissoesRoutes } from './routes'
 
 class App {
     public server;
@@ -18,7 +18,8 @@ class App {
     }
 
     routes() {
-        this.server.use("/api/pessoas", pessoasRoutes)
+        this.server.use("/api/pessoas", pessoasRoutes),
+        this.server.use("/api/profissoes", profissoesRoutes)
     }
 }
 
