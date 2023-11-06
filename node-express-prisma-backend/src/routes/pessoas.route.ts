@@ -5,4 +5,6 @@ const routes = Router();
 
 routes.get("/", pessoasController.listAll)
 
+routes.post("/", pessoasController.createPessoa)
+
 export default routes

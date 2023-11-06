@@ -7,6 +7,7 @@
             <mat-label>Nome da Pessoa</mat-label>
             <input 
                 matInput 
+                required
                 type="text" 
                 placeholder="Ex. Gustavo S. P. Almeida"
                 formControlName="nome"
@@ -15,7 +16,8 @@
         <mat-form-field appearance="outline">
             <mat-label>Data de nascimento</mat-label>
             <input 
-                matInput 
+                matInput
+                required 
                 [matDatepicker]="picker" 
                 placeholder="Ex. 13/08/1997"
                 formControlName="dataNascimento"
@@ -27,7 +29,8 @@
         <mat-form-field appearance="outline">
             <mat-label>CPF</mat-label>
             <input 
-                matInput 
+                matInput
+                required 
                 type="text" 
                 placeholder="Ex. 123.456.789-00"
                 formControlName="cpf"
