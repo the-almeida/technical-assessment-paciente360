@@ -49,6 +49,7 @@ async function main() {
             pesDataNascimento: "1997-08-13T00:00:00.000Z",
             pesCpf: "06209187994",
             pesTelefone: "+5544999571618",
+            pesObservacoes: "Informações complementares sobre o Gustavo",
             profId: 6
         }
     })
