@@ -10,7 +10,7 @@ export class PessoasService {
   constructor(private _http: HttpClient) {}
 
   addPessoa(formData: any): Observable<any> {
-    return this._http.post('http://localhost:3000/api/pessoas', formData)
+    return this._http.post('http://localhost:3000/api/pessoas/create', formData)
   }
 
   updatePessoa(id: number, formData: any): Observable<any> {
