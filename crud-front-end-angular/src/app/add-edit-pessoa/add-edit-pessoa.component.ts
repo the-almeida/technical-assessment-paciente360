@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PessoasService } from '../services/pessoas.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoreService } from '../core/core.service';
 
 @Component({
   selector: 'app-add-edit-pessoa',
@@ -21,6 +22,7 @@ export class AddEditPessoaComponent implements OnInit {
       private _formBuilder: FormBuilder, 
       private _pessoasService: PessoasService, 
       private _dialogRef: MatDialogRef<AddEditPessoaComponent>,
+      private _coreService: CoreService,
       @Inject(MAT_DIALOG_DATA) public data:any
     ) {
     this.pessoaForm = this._formBuilder.group({
@@ -41,9 +43,8 @@ export class AddEditPessoaComponent implements OnInit {
     if (this.pessoaForm.valid){
       if(this.data) {
         this._pessoasService.updatePessoa(this.data.id, this.pessoaForm.value).subscribe({
-          next: (val: any) => {
-            console.log(val);
-            alert(`Dados da Pessoa atualizados com sucesso`)
+          next: () => {
+            this._coreService.openSnackBar('Dados da Pessoa atualizados com sucesso')
             this._dialogRef.close(true)
           },
           error: (err: any) => {
@@ -53,9 +54,8 @@ export class AddEditPessoaComponent implements OnInit {
       }
       else{
         this._pessoasService.addPessoa(this.pessoaForm.value).subscribe({
-          next: (val: any) => {
-            console.log(val);
-            alert('Pessoa adicionada com sucesso')
+          next: () => {
+            this._coreService.openSnackBar('Pessoa adicionada com sucesso')
             this._dialogRef.close(true)
           },
           error: (err: any) => {
@@ -64,7 +64,7 @@ export class AddEditPessoaComponent implements OnInit {
         })
       }
     } else {
-      alert('Falha na validação, verifique os campos em destaque.')
+      this._coreService.openSnackBar('Falha na validação, verifique os campos em destaque.')
     }
   }
 }

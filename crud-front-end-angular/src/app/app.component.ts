@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddEditPessoaComponent } from './add-edit-pessoa/add-edit-pessoa.component';
 import { PessoasService } from './services/pessoas.service';
+import { CoreService } from './core/core.service';
 
 
 @Component({
@@ -19,7 +20,11 @@ export class AppComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _dialog: MatDialog, private _pessoasService: PessoasService) {}
+  constructor(
+    private _dialog: MatDialog, 
+    private _pessoasService: PessoasService,
+    private _coreService: CoreService
+  ) {}
 
   ngOnInit(): void {
     this.getPessoasList()
@@ -71,7 +76,7 @@ export class AppComponent implements OnInit{
   deletePessoa(id: number) {
     return this._pessoasService.deletePessoa(id).subscribe({
       next: () => {
-        alert('Pessoa deletada com sucesso')
+        this._coreService.openSnackBar('Pessoa deletada com sucesso')
         this.getPessoasList()
       },
       error: (err: any) => {
