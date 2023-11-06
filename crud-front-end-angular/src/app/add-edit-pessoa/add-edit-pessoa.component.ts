@@ -27,7 +27,7 @@ export class AddEditPessoaComponent implements OnInit {
     ) {
     this.pessoaForm = this._formBuilder.group({
       nome: '',
-      dataDeNascimento: '',
+      dataNascimento: '',
       cpf: '',
       telefone: '',
       observacoes: '',

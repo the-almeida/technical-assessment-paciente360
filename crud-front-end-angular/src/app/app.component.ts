@@ -14,7 +14,7 @@ import { CoreService } from './core/core.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  displayedColumns: string[] = ['nome', 'dataDeNascimento', 'cpf', 'telefone', 'observacoes', 'profissao', 'acao'];
+  displayedColumns: string[] = ['id','nome', 'dataNascimento', 'cpf', 'telefone', 'observacoes', 'profissao', 'acao'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -28,6 +28,23 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.getPessoasList()
+  }
+
+  getPessoasList() {
+    this._pessoasService.getPessoasList().subscribe({
+      next: (res: any) => {
+        console.log(res);
+        
+        this.dataSource = new MatTableDataSource(res)
+        console.log(this.dataSource);
+        
+        this.dataSource.sort = this.sort
+        this.dataSource.paginator = this.paginator
+      },
+      error: (err: any) => {
+        console.error(err)
+      }
+    })
   }
 
   openAddPessoaForm() {
@@ -60,18 +77,6 @@ export class AppComponent implements OnInit{
     })
   }
 
-  getPessoasList() {
-    this._pessoasService.getPessoasList().subscribe({
-      next: (res: any) => {
-        this.dataSource = new MatTableDataSource(res)
-        this.dataSource.sort = this.sort
-        this.dataSource.paginator = this.paginator
-      },
-      error: (err: any) => {
-        console.error(err)
-      }
-    })
-  }
   
   deletePessoa(id: number) {
     return this._pessoasService.deletePessoa(id).subscribe({

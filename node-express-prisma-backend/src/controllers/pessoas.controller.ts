@@ -14,10 +14,16 @@ export const pessoasController = {
         })
 
         const parsedPessoas = pessoas.map(pessoa => ({
-            ...pessoa,
-            pesProfissao: pessoa.pesProfissao?.profNome || null,
+            id: pessoa.id,
+            nome: pessoa.pesNome,
+            dataNascimento: pessoa.pesDataNascimento,
+            cpf: pessoa.pesCpf,
+            telefone: pessoa.pesTelefone,
+            observacoes: pessoa.pesObservacoes,
+            idProfissao: pessoa.profId,
+            profissao: pessoa.pesProfissao?.profNome || null
         }));
-        
+
         return res.json(parsedPessoas)
     }
 }
