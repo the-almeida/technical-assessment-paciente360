@@ -10,5 +10,24 @@ services:
       POSTGRES_DB: mydb
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
+
+  backend:
+    build:
+      context: ./node-express-prisma-backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@postgres:5432/mydb
+
+  frontend:
+    build:
+      context: ./crud-front-end-angular
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres-data:

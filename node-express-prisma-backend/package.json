@@ -2,10 +2,11 @@
   "name": "express-prisma-backend",
   "version": "1.0.0",
   "description": "Backend to technical assessment for Paciente 360",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node build/src/server.js"
   },
   "prisma": {
     "seed": "ts-node-dev prisma/seed.ts"
