@@ -78,4 +78,18 @@ export const pessoasController = {
         }
 
     },
+    async deletePessoa(req: Request, res: Response) {
+        const { id: paramId } = req.params
+
+        const validId = paramId !== '' ? Number(paramId) : null;
+        if (validId) {
+            const deletedPessoa = await prisma.pessoa.delete({
+                where: {
+                    id: validId
+                }
+            })
+            return res.json({ pessoaDeletada: deletedPessoa })
+        }
+
+    },
 }
