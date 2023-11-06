@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../services/prisma";
 
-interface CreatePessoaRequest {
+interface BodyParamsPessoa {
     nome: string;
     dataNascimento: Date;
     cpf: string;
@@ -36,7 +36,7 @@ export const pessoasController = {
         return res.json(parsedPessoas)
     },
     async createPessoa(req: Request, res: Response) {
-        const pessoaData: CreatePessoaRequest = req.body
+        const pessoaData: BodyParamsPessoa = req.body
         pessoaData.idProfissao = pessoaData.idProfissao !== '' ? Number(pessoaData.idProfissao) : null;
 
         const pessoa = await prisma.pessoa.create({
@@ -50,6 +50,32 @@ export const pessoasController = {
             }
         })
 
-        return res.json({pessoa})
+        return res.json({ pessoa })
+    },
+    async updatePessoa(req: Request, res: Response) {
+        const { id: paramId } = req.params
+
+        const updatedData: BodyParamsPessoa = req.body
+
+        const validId = paramId !== '' ? Number(paramId) : null;
+        if (validId) {
+            updatedData.idProfissao = updatedData.idProfissao !== '' ? Number(updatedData.idProfissao) : null;
+
+            const updatedPessoa = await prisma.pessoa.update({
+                data: {
+                    pesNome: updatedData.nome,
+                    pesDataNascimento: updatedData.dataNascimento,
+                    pesCpf: updatedData.cpf,
+                    pesTelefone: updatedData.telefone,
+                    pesObservacoes: updatedData.observacoes,
+                    profId: updatedData.idProfissao
+                },
+                where: {
+                    id: validId
+                }
+            })
+            return res.json({ pessoaAtualizada: updatedPessoa })
+        }
+
     },
 }
