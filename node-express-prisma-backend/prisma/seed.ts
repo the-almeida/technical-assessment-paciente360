@@ -41,6 +41,17 @@ async function main() {
             data: profissao,
         });
     }
+
+    console.log('Seeding Pessoas table...')
+    await prisma.pessoa.create({
+        data: {
+            pesNome: "Gustavo Almeida",
+            pesDataNascimento: "1997-08-13T00:00:00.000Z",
+            pesCpf: "06209187994",
+            pesTelefone: "+5544999571618",
+            profId: 6
+        }
+    })
 }
 
 main()
