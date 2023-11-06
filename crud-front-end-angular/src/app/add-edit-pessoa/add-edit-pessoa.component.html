@@ -53,9 +53,9 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Profissão</mat-label>
-            <mat-select placeholder="Ex. Sr. Software Engineer" formControlName="profissao">
-                <mat-option *ngFor="let jobPosition of jobPositions" [value]="jobPosition">
-                    {{jobPosition}}
+            <mat-select placeholder="Ex. Sr. Software Engineer" formControlName="idProfissao">
+                <mat-option *ngFor="let occupation of occupations" [value]="occupation.id">
+                    {{occupation.nome}}
                 </mat-option>
             </mat-select>
         </mat-form-field>

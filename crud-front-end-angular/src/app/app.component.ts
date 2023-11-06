@@ -33,11 +33,7 @@ export class AppComponent implements OnInit{
   getPessoasList() {
     this._pessoasService.getPessoasList().subscribe({
       next: (res: any) => {
-        console.log(res);
-        
         this.dataSource = new MatTableDataSource(res)
-        console.log(this.dataSource);
-        
         this.dataSource.sort = this.sort
         this.dataSource.paginator = this.paginator
       },
